@@ -16,14 +16,12 @@ import java.util.ArrayList;
  */
 public class ForceDirectedBody {
     public float mass;
-    public float position;
-    public float velocity;
-    public float acceleration;
-    public float timestamp;
+    public float timestamp, position, velocity, acceleration;
     public ArrayList<Float> forces;
     public FileWriter writer;
 
     public static final float UPDATES_PER_SECOND = 200;
+    public static final float RUNTIME = 10;
 
     public ForceDirectedBody(float mass) throws IOException{
         this.mass = mass;
@@ -45,11 +43,11 @@ public class ForceDirectedBody {
         timestamp += 1 / UPDATES_PER_SECOND;
         float fnet_ = 0;
         for(Float force : forces) {
-            fnet_ += force /= UPDATES_PER_SECOND;
+            fnet_ += (force / UPDATES_PER_SECOND);
         }
         acceleration = fnet_ / mass;
         velocity += acceleration;
-        position += velocity;
+        position += velocity / UPDATES_PER_SECOND;
     }
 
     public void log() throws IOException {
@@ -64,7 +62,7 @@ public class ForceDirectedBody {
         try {
             ForceDirectedBody lifter = new ForceDirectedBody(1.0f);
             // goes for one second
-            while(lifter.timestamp < 200) {
+            while(lifter.timestamp < RUNTIME) {
                 lifter.step();
                 lifter.log();
             }
