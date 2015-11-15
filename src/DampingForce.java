@@ -14,7 +14,6 @@ public class DampingForce extends OneSpaceForce{
     public DampingForce(ForceDirectedBody body, float damping_coefficient) {
         k_ = damping_coefficient;
         body_ = body;
-        force_ = -body_.velocity_ * k_;
     }
 
     public void step() {

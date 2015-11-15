@@ -16,7 +16,6 @@ public class ElasticForce extends OneSpaceForce {
         body_ = body;
         elastic_coefficient_ = elastic_coefficient;
         initial_position_ = initial_position;
-        force_ = -initial_position_ - body_.position_ * elastic_coefficient_;
     }
 
     public void step() {
