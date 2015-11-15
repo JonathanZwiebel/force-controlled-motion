@@ -67,8 +67,9 @@ public class ForceDirectedBody {
     public static void main(String[] args) {
         try {
             ForceDirectedBody lifter = new ForceDirectedBody(100.0f);
-            lifter.addForce(new GravitationalForce(lifter));
             lifter.addForce(new ElasticForce(lifter, 100.0f, 0.0f));
+            lifter.addForce(new DampingForce(lifter, 50.0f));
+            lifter.position_ = 15.0f;
             lifter.open();
             while(lifter.time_ < RUNTIME) {
                 lifter.step();
