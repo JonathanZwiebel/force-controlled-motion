@@ -3,4 +3,6 @@
  */
 public abstract class OneSpaceForce {
     public float force_;
+
+    public abstract void step();
 }

@@ -22,31 +22,38 @@ public class ForceDirectedBody {
     public ArrayList<OneSpaceForce> forces_;
     public FileWriter writer_;
 
-    public ForceDirectedBody(float mass, ArrayList<OneSpaceForce> forces) throws IOException{
+    public ForceDirectedBody(float mass){
         mass_ = mass;
-        forces_ = forces;
         time_ = 0;
         position_ = 0;
         velocity_ = 0;
         acceleration_ = 0;
+        forces_ = new ArrayList();
+    }
 
-        File file_ = new File(FILEPATH);
-        if(!file_.exists()) {
-            file_.createNewFile();
-        }
-        writer_ = new FileWriter(file_);
-        writer_.append("time (s), position (m), velocity (m/s), acceleration(m/s^2)\n");
+    public void addForce(OneSpaceForce force) {
+        forces_.add(force);
     }
 
     public void step() throws IOException {
         time_ += 1 / UPDATES_PER_SECOND;
         float fnet_ = 0;
         for(OneSpaceForce force : forces_) {
+            force.step();
             fnet_ += force.force_;
         }
         acceleration_ = fnet_ / mass_;
         velocity_ += acceleration_ / UPDATES_PER_SECOND;
         position_ += velocity_ / UPDATES_PER_SECOND;
+    }
+
+    public void open() throws IOException {
+        File file_ = new File(FILEPATH);
+        if(!file_.exists()) {
+            file_.createNewFile();
+        }
+        writer_ = new FileWriter(file_);
+        writer_.append("time (s), position (m), velocity (m/s), acceleration(m/s^2)\n");
     }
 
     public void log() throws IOException {
@@ -59,11 +66,9 @@ public class ForceDirectedBody {
 
     public static void main(String[] args) {
         try {
-            ArrayList<OneSpaceForce> forces = new ArrayList();
-            forces.add(new ConstantForce(0.5f));
-
-
-            ForceDirectedBody lifter = new ForceDirectedBody(1.0f, forces);
+            ForceDirectedBody lifter = new ForceDirectedBody(10.0f);
+            lifter.addForce(new ConstantForce(0.5f));
+            lifter.open();
             while(lifter.time_ < RUNTIME) {
                 lifter.step();
                 lifter.log();
