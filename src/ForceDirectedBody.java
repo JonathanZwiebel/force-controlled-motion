@@ -39,9 +39,22 @@ public class ForceDirectedBody {
         time_ += 1 / UPDATES_PER_SECOND;
         float fnet_ = 0;
         for(OneSpaceForce force : forces_) {
-            force.step();
-            fnet_ += force.force_;
+            if(!(force instanceof StaticFriction)) {
+                force.step();
+                fnet_ += force.force_;
+            }
         }
+        for(OneSpaceForce force : forces_) {
+            if(force instanceof StaticFriction) {
+                if(Math.abs(force.force_) > Math.abs(fnet_)) {
+                    fnet_ = 0;
+                }
+                else {
+                    fnet_ += force.force_;
+                }
+            }
+        }
+
         acceleration_ = fnet_ / mass_;
         velocity_ += acceleration_ / UPDATES_PER_SECOND;
         position_ += velocity_ / UPDATES_PER_SECOND;
