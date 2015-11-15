@@ -10,7 +10,7 @@ public class GravitationalForce extends OneSpaceForce {
      * @param body body over which this force acts
      */
     public GravitationalForce(ForceDirectedBody body) {
-       force_ = body.mass_ * GRAVITY;
+       force_ = -body.mass_ * GRAVITY;
     }
 
     public void step() {

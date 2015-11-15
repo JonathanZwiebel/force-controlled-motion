@@ -53,7 +53,7 @@ public class ForceDirectedBody {
             file_.createNewFile();
         }
         writer_ = new FileWriter(file_);
-        writer_.append("time (s), position (m), velocity (m/s), acceleration(m/s^2)\n");
+       // writer_.append("time (s), position (m), velocity (m/s), acceleration(m/s^2)\n");
     }
 
     public void log() throws IOException {
