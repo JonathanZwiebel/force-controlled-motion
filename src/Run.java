@@ -30,7 +30,8 @@ public class Run {
 
     public static ForceDirectedBody getSamplePDControlledSystem() {
         ForceDirectedBody system = new ForceDirectedBody(10.0f);
-        system.addForce(new PDController(system, 15.0f, 2.5f, 0.0f));
+        system.addForce(new PDController(system, 0.03f, 1.5f, 0.0f));
+        system.addForce(new DampingForce(system, 2.0f));
         return system;
     }
 }
