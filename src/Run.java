@@ -38,13 +38,13 @@ public class Run {
     public static ForceDirectedBody getSamplePDControlledLifter() {
         float mass = 5.0f; // In kg
         float target = 0.03f; // In m
-        float kP = 0.0f;
-        float kD = 0.0f;
+        float kP = 140.0f;
+        float kD = 500.0f;
         float dampingCoefficient = 25.0f; // In N*m/s
         ForceDirectedBody lifter = new ForceDirectedBody(mass);
         lifter.addForce(new PDController(lifter, target, kP, kD));
         lifter.addForce(new DampingForce(lifter, dampingCoefficient));
-        lifter.addForce(new GravitationalForce(lifter));
+        //lifter.addForce(new GravitationalForce(lifter));
         return lifter;
     }
 }
