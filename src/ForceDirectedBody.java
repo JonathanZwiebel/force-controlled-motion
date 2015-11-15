@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * Force: N
  */
 public class ForceDirectedBody {
-    public static final float UPDATES_PER_SECOND = 200;
+    public static final float UPDATES_PER_SECOND = 128;
     public static final float RUNTIME = 10;
     public static final String FILEPATH = "logs/log.csv";
 
@@ -66,8 +66,9 @@ public class ForceDirectedBody {
 
     public static void main(String[] args) {
         try {
-            ForceDirectedBody lifter = new ForceDirectedBody(1000.0f);
+            ForceDirectedBody lifter = new ForceDirectedBody(100.0f);
             lifter.addForce(new GravitationalForce(lifter));
+            lifter.addForce(new DampingForce(lifter, 10.0f));
             lifter.open();
             while(lifter.time_ < RUNTIME) {
                 lifter.step();
