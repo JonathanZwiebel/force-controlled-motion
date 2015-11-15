@@ -14,8 +14,8 @@ import java.util.ArrayList;
  */
 public class ForceDirectedBody {
     public static final float UPDATES_PER_SECOND = 128;
-    public static final float RUNTIME = 10;
     public static final String FILEPATH = "logs/log.csv";
+    // TODO: Allow for more than one body
 
     public float mass_;
     public float time_, position_, velocity_, acceleration_;
@@ -62,23 +62,5 @@ public class ForceDirectedBody {
 
     public void close() throws IOException{
         writer_.close();
-    }
-
-    public static void main(String[] args) {
-        try {
-            ForceDirectedBody lifter = new ForceDirectedBody(100.0f);
-            lifter.addForce(new ElasticForce(lifter, 100.0f, 0.0f));
-            lifter.addForce(new DampingForce(lifter, 50.0f));
-            lifter.position_ = 15.0f;
-            lifter.open();
-            while(lifter.time_ < RUNTIME) {
-                lifter.step();
-                lifter.log();
-            }
-            lifter.close();
-        }
-        catch(Exception e) {
-            e.printStackTrace();
-        }
     }
 }
