@@ -3,11 +3,11 @@
  * Run this class
  */
 public class Run {
-    public static final float RUNTIME = 5.0f;
+    public static final float RUNTIME = 10.0f;
 
     public static void main(String[] args) {
         try {
-            ForceDirectedBody body = getSamplePDControlledLifter();
+            ForceDirectedBody body = getIHeavyGravityPIDController();
             body.open();
             while(body.time_ < RUNTIME) {
                 body.step();
@@ -20,6 +20,7 @@ public class Run {
         }
     }
 
+    // too jerky
     public static ForceDirectedBody getSampleDampedMassSpringSystem() {
         float mass = 100.0f; // In kg
         float elastic_coefficient = 100.0f; // In N/m
@@ -35,7 +36,33 @@ public class Run {
     }
 
 
-    public static ForceDirectedBody getSamplePDControlledLifter() {
+    public static ForceDirectedBody getBasicPDController() {
+        float mass = 7.0f; // In kg
+        float target = 0.03f; // In m
+        float kP = 60.0f;
+        float kD = 12.0f;
+        float dampingCoefficient = 25.0f; // In N*m/s
+        ForceDirectedBody object = new ForceDirectedBody(mass);
+        object.addForce(new PDController(object, target, kP, kD));
+        object.addForce(new DampingForce(object, dampingCoefficient));
+        return object;
+    }
+
+    public static ForceDirectedBody getIHeavyGravityPIDController() {
+        float mass = 7.0f; // In kg
+        float target = 0.03f; // In m
+        float kP = 10000.0f;
+        float kD = 100.0f;
+        float kI = 1.0f;
+        float dampingCoefficient = 25.0f; // In N*m/s
+        ForceDirectedBody object = new ForceDirectedBody(mass);
+        object.addForce(new PIDController(object, target, kP, kD, kI));
+        object.addForce(new DampingForce(object, dampingCoefficient));
+        object.addForce(new GravitationalForce(object));
+        return object;
+    }
+
+    public static ForceDirectedBody getLifterPDController() {
         float mass = 7.0f; // In kg
         float target = 0.03f; // In m
         float kP = 60.0f;
@@ -45,8 +72,8 @@ public class Run {
         ForceDirectedBody lifter = new ForceDirectedBody(mass);
         lifter.addForce(new PDController(lifter, target, kP, kD));
         lifter.addForce(new DampingForce(lifter, dampingCoefficient));
-        //lifter.addForce(new GravitationalForce(lifter));
-        //lifter.addForce(new StaticFriction(staticFrictionForce));
+        lifter.addForce(new GravitationalForce(lifter));
+        lifter.addForce(new StaticFriction(staticFrictionForce));
         return lifter;
     }
 }
