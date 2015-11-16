@@ -17,7 +17,7 @@ public class PDController extends OneSpaceForce{
 
     public void step() {
         float error = target_ - body_.position_;
-        float derivative = last_error_ - error;
+        float derivative = error - last_error_;
 
         force_ = error * kP_ + derivative * kD_;
         last_error_ = error;

@@ -19,7 +19,7 @@ public class PIDController extends OneSpaceForce {
 
     public void step() {
         float error = target_ - body_.position_;
-        float derivative = last_error_ - error;
+        float derivative = error - last_error_;
         integral_ += error;
 
         force_ = error * kP_ + derivative * kD_ + integral_ * kI_ / ForceDirectedBody.UPDATES_PER_SECOND;

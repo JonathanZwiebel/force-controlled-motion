@@ -7,7 +7,7 @@ public class Run {
 
     public static void main(String[] args) {
         try {
-            ForceDirectedBody body = getLimitedPDController();
+            ForceDirectedBody body = getBasicPIDController();
             body.open();
             while(body.time_ < RUNTIME) {
                 body.step();
@@ -61,15 +61,31 @@ public class Run {
         return object;
     }
 
-    public static ForceDirectedBody getIHeavyGravityPIDController() {
+    public static ForceDirectedBody getBasicPIDController() {
         float mass = 7.0f; // In kg
         float target = 0.03f; // In m
-        float kP = 10000.0f;
-        float kD = 100.0f;
-        float kI = 1.0f;
+        float kP = 3000.0f;
+        float kD = 10.0f;
+        float kI = 0.01f;
         float dampingCoefficient = 25.0f; // In N*m/s
         ForceDirectedBody object = new ForceDirectedBody(mass);
         object.addForce(new PIDController(object, target, kP, kD, kI));
+        object.addForce(new DampingForce(object, dampingCoefficient));
+        object.addForce(new GravitationalForce(object));
+        return object;
+    }
+
+    public static ForceDirectedBody getLimitedPIDController() {
+        float mass = 7.0f; // In kg
+        float target = 0.03f; // In m
+        float kP = 10000.0f;
+        float kD = 200.0f;
+        float kI = 1.0f;
+        float lower_limit = 67.0f;
+        float upper_limit = 69.0f;
+        float dampingCoefficient = 25.0f; // In N*m/s
+        ForceDirectedBody object = new ForceDirectedBody(mass);
+        object.addForce(new LimitedPIDController(object, target, kP, kD, kI, lower_limit, upper_limit));
         object.addForce(new DampingForce(object, dampingCoefficient));
         object.addForce(new GravitationalForce(object));
         return object;
