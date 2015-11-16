@@ -19,3 +19,9 @@ hs_err_pid*
 #Logs#
 logs/
 .logs/
+/bin/
+
+.classpath
+.project
+*.project
+./meta
