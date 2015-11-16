@@ -36,16 +36,17 @@ public class Run {
 
 
     public static ForceDirectedBody getSamplePDControlledLifter() {
-        float mass = 10.0f; // In kg
+        float mass = 7.0f; // In kg
         float target = 0.03f; // In m
-        float kP = 2400.0f;
-        float kD = 100.0f;
-        float dampingCoefficient = 2.0f; // In N*m/s
+        float kP = 7000.0f;
+        float kD = 2500.0f;
+        float dampingCoefficient = 250.0f; // In N*m/s
+        float staticFrictionForce = -120.0f; // In N
         ForceDirectedBody lifter = new ForceDirectedBody(mass);
         lifter.addForce(new PDController(lifter, target, kP, kD));
         lifter.addForce(new DampingForce(lifter, dampingCoefficient));
-        //lifter.addForce(new GravitationalForce(lifter));
-        //lifter.addForce(new StaticFriction(-120.0f));
+        lifter.addForce(new GravitationalForce(lifter));
+        lifter.addForce(new StaticFriction(staticFrictionForce));
         return lifter;
     }
 }
