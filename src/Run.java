@@ -7,7 +7,7 @@ public class Run {
 
     public static void main(String[] args) {
         try {
-            ForceDirectedBody body = getIHeavyGravityPIDController();
+            ForceDirectedBody body = getLimitedPDController();
             body.open();
             while(body.time_ < RUNTIME) {
                 body.step();
@@ -44,6 +44,19 @@ public class Run {
         float dampingCoefficient = 25.0f; // In N*m/s
         ForceDirectedBody object = new ForceDirectedBody(mass);
         object.addForce(new PDController(object, target, kP, kD));
+        object.addForce(new DampingForce(object, dampingCoefficient));
+        return object;
+    }
+
+    public static ForceDirectedBody getLimitedPDController() {
+        float mass = 7.0f; // In kg
+        float target = 0.075f; // In m
+        float kP = 60.0f;
+        float kD = 12.0f;
+        float dampingCoefficient = 25.0f; // In N*m/s
+        float force_limit = 0.25f;
+        ForceDirectedBody object = new ForceDirectedBody(mass);
+        object.addForce(new LimitedPDController(object, target, kP, kD, force_limit));
         object.addForce(new DampingForce(object, dampingCoefficient));
         return object;
     }
