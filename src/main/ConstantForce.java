@@ -1,3 +1,5 @@
+package main;
+
 /**
  * Constant force in 1D space
  */

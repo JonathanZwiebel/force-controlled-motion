@@ -1,3 +1,5 @@
+package main;
+
 /**
  * Models a force that acts in one dimensional space
  */

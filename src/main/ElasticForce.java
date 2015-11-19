@@ -1,3 +1,5 @@
+package main;
+
 /**
  * Created by Jonathan Zwiebel on 11/15/15.
  * Force with magnitude equal to distance from starting location
