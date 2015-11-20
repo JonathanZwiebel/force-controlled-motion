@@ -28,7 +28,7 @@ public class ForceDirectedBody {
         position_ = 0;
         velocity_ = 0;
         acceleration_ = 0;
-        forces_ = new ArrayList();
+        forces_ = new ArrayList<OneSpaceForce>();
     }
 
     public void addForce(OneSpaceForce force) {
