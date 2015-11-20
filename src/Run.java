@@ -7,8 +7,8 @@ public class Run {
 
     public static void main(String[] args) {
         try {
-            ForceDirectedBody body = PIDControlledBodies.sampleLimitedDampedPDControlledBody(Float.parseFloat(args[0]), 
-                Float.parseFloat(args[1]), Float.parseFloat(args[2]), Float.parseFloat(args[3]));
+            ForceDirectedBody body = PIDControlledBodies.sampleDampedPDControlledBody(Float.parseFloat(args[0]), 
+                Float.parseFloat(args[1]), Float.parseFloat(args[2]));
             body.open();
             while(body.time_ < RUNTIME) {
                 body.step();
