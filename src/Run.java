@@ -3,11 +3,12 @@
  * Run this class
  */
 public class Run {
-    public static final float RUNTIME = 10.0f;
+    public static final float RUNTIME = 5.0f;
 
     public static void main(String[] args) {
         try {
-            ForceDirectedBody body = getBasicPIDController();
+            ForceDirectedBody body = PIDControlledBodyGenerator.samplePDControlledBody(Float.parseFloat(args[0]), Float.parseFloat(args[1]), 
+                Float.parseFloat(args[2]));
             body.open();
             while(body.time_ < RUNTIME) {
                 body.step();
