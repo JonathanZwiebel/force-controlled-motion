@@ -3,11 +3,12 @@
  * Run this class
  */
 public class Run {
-    public static final float RUNTIME = 15.0f;
+    public static final float RUNTIME = 5.0f;
 
     public static void main(String[] args) {
         try {
-            ForceDirectedBody body = Oscilators.sampleDampedOscilator();
+            ForceDirectedBody body = PIDControlledBodies.sampleLimitedDampedPDControlledBody(Float.parseFloat(args[0]), 
+                Float.parseFloat(args[1]), Float.parseFloat(args[2]), Float.parseFloat(args[3]));
             body.open();
             while(body.time_ < RUNTIME) {
                 body.step();
@@ -18,33 +19,6 @@ public class Run {
         catch(Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public static ForceDirectedBody getLimitedPDController() {
-        float mass = 7.0f; // In kg
-        float target = 0.075f; // In m
-        float kP = 60.0f;
-        float kD = 12.0f;
-        float dampingCoefficient = 25.0f; // In N*m/s
-        float force_limit = 0.25f;
-        ForceDirectedBody object = new ForceDirectedBody(mass);
-        object.addForce(new LimitedPDController(object, target, kP, kD, force_limit));
-        object.addForce(new DampingForce(object, dampingCoefficient));
-        return object;
-    }
-
-    public static ForceDirectedBody getBasicPIDController() {
-        float mass = 7.0f; // In kg
-        float target = 0.03f; // In m
-        float kP = 3000.0f;
-        float kD = 10.0f;
-        float kI = 0.01f;
-        float dampingCoefficient = 25.0f; // In N*m/s
-        ForceDirectedBody object = new ForceDirectedBody(mass);
-        object.addForce(new PIDController(object, target, kP, kD, kI));
-        object.addForce(new DampingForce(object, dampingCoefficient));
-        object.addForce(new GravitationalForce(object));
-        return object;
     }
 
     public static ForceDirectedBody getLimitedPIDController() {
