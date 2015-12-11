@@ -1,3 +1,5 @@
+package forces;
+
 /**
  * Constant force in 1D space
  */

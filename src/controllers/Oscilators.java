@@ -1,3 +1,8 @@
+package controllers;
+
+import forces.DampingForce;
+import forces.ElasticForce;
+
 public class Oscilators {
 	public static ForceDirectedBody sampleDampedOscilator() {
 		    float mass = 5.0f; 

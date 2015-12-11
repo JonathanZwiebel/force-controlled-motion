@@ -1,3 +1,5 @@
+package forces;
+
 /**
  * Models a force that acts in one dimensional space
  */

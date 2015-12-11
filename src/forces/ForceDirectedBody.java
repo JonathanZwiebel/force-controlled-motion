@@ -1,3 +1,8 @@
+package forces;
+
+import forces.OneSpaceForce;
+import forces.StaticFriction;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;

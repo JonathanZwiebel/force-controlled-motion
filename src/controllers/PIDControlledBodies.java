@@ -1,3 +1,7 @@
+package controllers;
+
+import forces.DampingForce;
+
 public class PIDControlledBodies {
 
 	public static PDController dampedPDControlledBody(float mass, float damping_coefficient, float kP, float kD, float start_pos, float target) {

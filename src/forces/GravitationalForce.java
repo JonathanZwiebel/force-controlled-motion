@@ -1,3 +1,5 @@
+package forces;
+
 /**
  * Created by Jonathan Zwiebel on 11/15/15.
  * Force on an object due to gravity

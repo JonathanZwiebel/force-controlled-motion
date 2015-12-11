@@ -1,3 +1,5 @@
+package forces;
+
 /**
  * Created by Jonathan Zwiebel on 11/15/15.
  * A negative force with magnitude proportional to the velocity of an object

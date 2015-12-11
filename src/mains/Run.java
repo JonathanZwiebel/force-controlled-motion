@@ -1,14 +1,25 @@
+package mains;
+
+import controllers.FitnessScored;
+import controllers.LimitedPIDController;
+import controllers.PDController;
+import controllers.PIDControlledBodies;
+import forces.DampingForce;
+import forces.ForceDirectedBody;
+import forces.GravitationalForce;
+import forces.StaticFriction;
+
 /**
  * Created by Jonathan Zwiebel on 11/15/15.
- * Run this class
+ * mains.Run this class
  */
 public class Run {
     public static final float RUNTIME = 5.0f;
 
     public static void main(String[] args) {
         try {
-            ForceDirectedBody body = PIDControlledBodies.sampleDampedPDControlledBody(Float.parseFloat(args[0]), 
-                Float.parseFloat(args[1]), Float.parseFloat(args[2]));
+            ForceDirectedBody body = PIDControlledBodies.sampleDampedPDControlledBody(Float.parseFloat(args[0]),
+                    Float.parseFloat(args[1]), Float.parseFloat(args[2]));
             body.open();
             while(!((FitnessScored) body).completed() || body.time_ < RUNTIME) {
                 body.step();
