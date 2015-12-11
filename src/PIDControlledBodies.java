@@ -1,14 +1,14 @@
 public class PIDControlledBodies {
 
-	public static ForceDirectedBody dampedPDControlledBody(float mass, float damping_coefficient, float kP, float kD, float start_pos, float target) {
+	public static PDController dampedPDControlledBody(float mass, float damping_coefficient, float kP, float kD, float start_pos, float target) {
         ForceDirectedBody body = new ForceDirectedBody(mass);
         body.position_ = start_pos;
         body.addForce(new PDController(body, target, kP, kD));
         body.addForce(new DampingForce(body, damping_coefficient));
-        return body;
+        return (PDController) body;
 	}
 
-	public static ForceDirectedBody sampleDampedPDControlledBody (float kP, float kD, float target){
+	public static PDController sampleDampedPDControlledBody (float kP, float kD, float target){
 		return dampedPDControlledBody(7.0f, 25.0f, kP, kD, 0.0f, target);
 	}
 

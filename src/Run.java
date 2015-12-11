@@ -10,10 +10,11 @@ public class Run {
             ForceDirectedBody body = PIDControlledBodies.sampleDampedPDControlledBody(Float.parseFloat(args[0]), 
                 Float.parseFloat(args[1]), Float.parseFloat(args[2]));
             body.open();
-            while(body.time_ < RUNTIME) {
+            while(!((FitnessScored) body).completed() || body.time_ < RUNTIME) {
                 body.step();
                 body.log();
             }
+            System.out.println("Fitness: " + ((FitnessScored) body).fitness());
             body.close();
         }
         catch(Exception e) {

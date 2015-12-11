@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * Force: N
  */
 public class ForceDirectedBody {
-    public static final float UPDATES_PER_SECOND = 128;
+    public static final float UPDATES_PER_SECOND = 128.0f;
     public static final String FILEPATH = "logs/log.csv";
     // TODO: Allow for more than one body
 
