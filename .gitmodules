@@ -1,0 +1,3 @@
+[submodule "crit"]
+	path = crit
+	url = git@github.com:jonathanzwiebel/critical-path.git
